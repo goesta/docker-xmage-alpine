@@ -14,8 +14,6 @@ ENV JAVA_VERSION_MAJOR=8 \
     XMAGE_DOCKER_SEONDARY_BIND_PORT="17179" \
     XMAGE_DOCKER_SERVER_NAME="mage-server"
 
-WORKDIR /xmage
-
 RUN apk upgrade --update && \
     apk add --update curl ca-certificates jq && \
     curl -L -o /tmp/glibc-2.21-r2.apk "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk" && \
@@ -60,12 +58,15 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/oblique-fonts \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
-    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-    curl http://xmage.de/xmage/config.json | jq '.XMage.location' | xargs curl -L > xmage.zip && \
-    unzip xmage.zip && \
-    rm xmage.zip && \
-    rm -rf /xmage/mage-client && \
-    apk del curl jq
+    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
+WORKDIR /xmage
+
+RUN curl http://xmage.de/xmage/config.json | jq '.XMage.location' | xargs curl -L > xmage.zip \
+ && unzip xmage.zip \
+ && rm xmage.zip \
+ && rm -rf /xmage/mage-client \
+ && apk del curl jq
 
 COPY dockerStartServer.sh /xmage/mage-server/
 
