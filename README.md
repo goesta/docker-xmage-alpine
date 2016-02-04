@@ -1,4 +1,6 @@
-# XMage Server Dockerfile based on Alpine
+# Minimal XMage Server based on Alpine
+
+[![](https://badge.imagelayers.io/goesta/xmage-alpine:latest.svg)](https://imagelayers.io/?images=goesta/xmage-alpine:latest)
 
 ## Usage
     docker run --rm -it \
@@ -6,7 +8,7 @@
         -p 17179:17179 \
         --add-host example.com:0.0.0.0 \
         -e "XMAGE_DOCKER_SERVER_ADDRESS=example.com" \
-        xmage-alpine
+        goesta/xmage-alpine
 
 
 XMage needs to know the domain name the server is running on. The `--add-host` option adds an entry to the containers `/etc/hosts` file for this domain. Using the `XMAGE_*` environment variables you can modify the `config.xml` file.
