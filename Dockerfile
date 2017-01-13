@@ -80,10 +80,9 @@ RUN apk upgrade --update && \
 
 WORKDIR /xmage
 
-RUN curl http://xmage.de/xmage/config.json | jq '.XMage.location' | xargs curl -L > xmage.zip \
- && unzip xmage.zip \
+RUN curl --silent --show-error http://xmage.de/xmage/config.json | jq '.XMage.location' | xargs curl -# -L > xmage.zip \
+ && unzip xmage.zip -x "mage-client*" \
  && rm xmage.zip \
- && rm -rf /xmage/mage-client \
  && apk del curl jq
 
 COPY dockerStartServer.sh /xmage/mage-server/
