@@ -1,6 +1,17 @@
-# XMage Server based on Alpine
+# Info
 
-[![](https://images.microbadger.com/badges/image/goesta/xmage-alpine.svg)](https://microbadger.com/images/goesta/xmage-alpine)
+This Project relied on docker hub automated builds which are no longer available for open source projects. I had to change to a new build system and moved the project to another repo.
+
+You can find up to date Images on these Repos.
+
+Release Version:
+https://github.com/mage-docker/xmage-docker
+
+Beta Version (recommended):
+https://github.com/mage-docker/xmage-beta-docker
+
+
+# XMage Server based on Alpine
 
 ## Usage
     docker run --rm -it \
